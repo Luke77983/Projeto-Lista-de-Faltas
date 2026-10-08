@@ -99,14 +99,35 @@ class Produto_repositorio:
 
     def deletar(self):
         cursor = self.conec.cursor()
+        
+        while True:
+            print('''
+            Escolha uma opção para deletar o produto
+            1 - Lista de produtos
+            2 - id do produto 
+            3 - Sair''')
 
-        pprint(self.buscar())
+            opçao = int(input("Digite uma opção: "))
 
-        idproduto = int(input("Digite o id do produto: "))
+            match opçao:
+            
+                case 1:
+                    pprint(self.buscar())
+                    continue
+                case 2:
+                    id = int(input("Digite um id válido: "))
 
-        cursor.execute('''
-        delete  from produtos
-        where id = ?''',
-        (idproduto,))
+                case 3:
+                    break
+                case _:
+                    print("Opção invalida!")
+                    continue
+        
 
-        self.conec.commit()
+
+            cursor.execute('''
+            delete  from produtos
+            where id = ?''',
+            (idproduto,))
+
+            self.conec.commit()
