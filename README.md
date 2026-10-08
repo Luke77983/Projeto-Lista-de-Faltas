@@ -1,2 +1,2 @@
-# projeto-lista-de-faltas
-Projeto de portfílio
+# Projeto-Lista-de-Faltas
+projeto portfólio
