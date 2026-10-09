@@ -4,8 +4,6 @@ def main():
      
     teste.editar()
     
-    teste.buscar()
-    
  
 
 

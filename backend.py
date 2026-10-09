@@ -48,7 +48,7 @@ class Produto_repositorio:
             1 - Código do produto
             2 - Nome do produto
             3 - Valor do produto
-            4 - Lista de produtos
+            4 - Pesquisar novo produto
             5 - Sair
     ''')
 
@@ -71,6 +71,8 @@ class Produto_repositorio:
 
                 case 4:
                     pprint(self.buscar())
+                    pesquisa = str(input("Digite um novo produto e confirme o id: "))
+                    pprint(self.buscar(pesquisa))
                     continue
 
                 case 5:
@@ -120,7 +122,7 @@ class Produto_repositorio:
                 case 3:
                     break
                 case _:
-                    print("Opção invalida!")
+                    print("\033[31mOpção invalida!\033[m")
                     continue
         
 
