@@ -33,84 +33,24 @@ class Produto_repositorio:
 )
         self.conec.commit()
 
-    def editar(self):
+    def editar(self,onde, nova_atualizacao, idproduto):
         cursor = self.conec.cursor()
 
-        pprint(self.buscar())
+                   
+        cursor.execute(f'''
+        update produtos
+        set  {onde} = ?
+        where id = ?''', (nova_atualizacao, idproduto,))
 
-        pesquisa = str(input("Digite um produto válido e confirme o id: "))
 
-        print(self.buscar(pesquisa))
 
-        while True:
-            print('''
-            Escolha uma opção para alterar:
-            1 - Código do produto
-            2 - Nome do produto
-            3 - Valor do produto
-            4 - Pesquisar novo produto
-            5 - Deletar produto
-            6 - Sair
-    ''')
-
-            opcao = int(input("Digite a opção: "))
-
-            match opcao:
-
-                case 1:
-                    onde = "codigo"
-                    id = int(input("Digite o id do produto: "))
-                    nova_atualizacao = int(input("Digite novo código: "))
-                case 2:
-                    onde = "produto"
-                    id = int(input("Digite o id do produto: "))
-                    nova_atualizacao = str(input("Digite o novo nome do produto: "))
-                case 3:
-                    onde = "valor"
-                    id = int(input("Digite o id do produto: "))
-                    nova_atualizacao = float(input("Digite um novo valor: "))
-
-                case 4:
-                    pprint(self.buscar())
-                    pesquisa = str(input("Digite um novo produto e confirme o id: "))
-                    pprint(self.buscar(pesquisa))
-                    continue
-                case 5:
-                    id = int(input("Digite a id do produto: "))
-                    
-                    resp = str(input("Tem certeza que deseja deletar esse produto? [S/N] ")).strip()
-                    
-                    if len(resp) == 0:
-                        print("\033[31mOpção inválida\033[m")
-                    
-                        
-                        
-                    if resp == "S":
-                        self.deletar(id)
-                        continue
-                    elif resp == "N":
-                        continue
-                    else:
-                        print("\033[31mDigite uma opção valida\033[m]")
-                        continue
-                    
-                    
-                    
-                case 6:
-                    break
-                case _:
-                    print("\033[31mOpção invalida\033[m")
-                    continue
-
-            cursor.execute(f'''
-            update produtos
-            set  {onde} = ?
-            where id = ?''', (nova_atualizacao, id,))
-
-            if cursor.rowcount == 0:
-                print("\033[31mid não encontrado\033[m")
-
+        if cursor.rowcount == 0:
+            return False
+        else:
             self.conec.commit()
+            return True
+
+        
 
     def buscar(self, produto=""):
         cursor = self.conec.cursor()
@@ -129,5 +69,9 @@ class Produto_repositorio:
         delete  from produtos
         where id = ?''',
         (idproduto,))
-
-        self.conec.commit()
+        
+        if cursor.rowcount == 0:
+            return False
+        else:
+            self.conec.commit()
+            return True
