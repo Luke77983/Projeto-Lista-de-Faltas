@@ -8,13 +8,28 @@ janela.minsize(width=500, height=400)
 
 janela.geometry("700x400")
 
-abas = customtkinter.CTkTabview(janela,width=400,bg_color="black", fg_color="#504D4D", corner_radius=20, border_width=1, border_color="blue", segmented_button_fg_color="blue", segmented_button_selected_color="blue", segmented_button_unselected_hover_color="gray")
+abas = customtkinter.CTkTabview(janela,width=400,bg_color="black", 
+
+fg_color="#504D4D", corner_radius=20, border_width=1, 
+
+border_color="blue", segmented_button_fg_color="blue", 
+
+segmented_button_selected_color="blue", 
+
+segmented_button_unselected_hover_color="gray")
+
 abas.pack()
+
 abas.add("Código")
+
 abas.add("Produtos")
+
 abas.add("Valor")
+
 abas.tab("Código").grid_columnconfigure(0,weight=1)
+
 abas.tab("Produtos").grid_columnconfigure(0, weight=1)
+
 abas.tab("Valor").grid_columnconfigure(0, weight=1)
 
 texto = customtkinter.CTkLabel(abas.tab("Código"), text=" 001\n 002\n 003\n", text_color="white" )

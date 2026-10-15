@@ -1,10 +1,7 @@
 from backend import Produto_repositorio
 def main():
-    teste = Produto_repositorio()
-     
-    teste.editar()
-    
- 
+   pass 
+
 
 
 

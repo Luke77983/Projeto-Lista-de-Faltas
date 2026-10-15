@@ -49,7 +49,8 @@ class Produto_repositorio:
             2 - Nome do produto
             3 - Valor do produto
             4 - Pesquisar novo produto
-            5 - Sair
+            5 - Deletar produto
+            6 - Sair
     ''')
 
             opcao = int(input("Digite a opção: "))
@@ -74,8 +75,28 @@ class Produto_repositorio:
                     pesquisa = str(input("Digite um novo produto e confirme o id: "))
                     pprint(self.buscar(pesquisa))
                     continue
-
                 case 5:
+                    id = int(input("Digite a id do produto: "))
+                    
+                    resp = str(input("Tem certeza que deseja deletar esse produto? [S/N] ")).strip()
+                    
+                    if len(resp) == 0:
+                        print("\033[31mOpção inválida\033[m")
+                    
+                        
+                        
+                    if resp == "S":
+                        self.deletar(id)
+                        continue
+                    elif resp == "N":
+                        continue
+                    else:
+                        print("\033[31mDigite uma opção valida\033[m]")
+                        continue
+                    
+                    
+                    
+                case 6:
                     break
                 case _:
                     print("\033[31mOpção invalida\033[m")
@@ -99,37 +120,14 @@ class Produto_repositorio:
 
         return cursor.fetchall()
 
-    def deletar(self):
+    def deletar(self, idproduto):
         cursor = self.conec.cursor()
-        
-        while True:
-            print('''
-            Escolha uma opção para deletar o produto
-            1 - Lista de produtos
-            2 - id do produto 
-            3 - Sair''')
-
-            opçao = int(input("Digite uma opção: "))
-
-            match opçao:
             
-                case 1:
-                    pprint(self.buscar())
-                    continue
-                case 2:
-                    id = int(input("Digite um id válido: "))
+    
 
-                case 3:
-                    break
-                case _:
-                    print("\033[31mOpção invalida!\033[m")
-                    continue
-        
+        cursor.execute('''
+        delete  from produtos
+        where id = ?''',
+        (idproduto,))
 
-
-            cursor.execute('''
-            delete  from produtos
-            where id = ?''',
-            (idproduto,))
-
-            self.conec.commit()
+        self.conec.commit()
