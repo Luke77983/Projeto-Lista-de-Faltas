@@ -28,18 +28,21 @@ class Produto_repositorio:
 
     def cadastrar(self, produto):
         cursor = self.conec.cursor()
-        if self.buscar(produto) == []: 
-            cursor.execute('''
-            insert into produtos (produto, valor, codigo) values(?,?,?)''',
-            (produto.nome_produto, produto.valor_produto, produto.codigo)
-    )       
-            novo_id = cursor.lastrowid
-            
-            self.conec.commit()
-            
-            return novo_id
-        else:
-            print("Erro esse produto já está cadastrado!")
+        for prod in self.buscar(produto.nome_produto):
+            if prod.nome_produto.capitalize() == produto.nome_produto.capitalize():
+                print("Erro esse item ja existe")
+                return
+        cursor.execute('''
+        insert into produtos (produto, valor, codigo) values(?,?,?)''',
+        (produto.nome_produto, produto.valor_produto, produto.codigo)
+)       
+        novo_id = cursor.lastrowid
+        
+        self.conec.commit()
+
+        return novo_id
+
+        
 
     def editar(self,onde, nova_atualizacao, idproduto:int):
         cursor = self.conec.cursor()

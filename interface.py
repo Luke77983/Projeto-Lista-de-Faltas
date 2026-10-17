@@ -35,6 +35,7 @@ abas.tab("Valor").grid_columnconfigure(0, weight=1)
 texto = customtkinter.CTkLabel(abas.tab("Código"), text=" 001\n 002\n 003\n", text_color="white" )
 texto.pack()
 
+
 nomes = customtkinter.CTkLabel(abas.tab("Produtos"), text="Esmerilhadeira\n Tomada\n Alicate\n", text_color="white")
 nomes.pack()
 
